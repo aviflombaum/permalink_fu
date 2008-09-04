@@ -96,11 +96,11 @@ module PermalinkFu
   protected
     def create_unique_permalink
       return unless should_create_permalink?
-      if send("read_attribute", self.class.permalink_field.to_sym).to_s.empty?
+      if read_attribute(self.class.permalink_field).to_s.empty?
         send("#{self.class.permalink_field}=", create_permalink_for(self.class.permalink_attributes))
       end
       limit   = self.class.columns_hash[self.class.permalink_field].limit
-      base    = send("#{self.class.permalink_field}=", send("read_attribute", self.class.permalink_field.to_sym)[0..limit - 1])
+      base    = send("#{self.class.permalink_field}=", read_attribute(self.class.permalink_field)[0..limit - 1])
       counter = 1
       # oh how i wish i could use a hash for conditions
       conditions = ["#{self.class.permalink_field} = ?", base]

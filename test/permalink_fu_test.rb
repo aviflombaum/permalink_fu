@@ -90,6 +90,10 @@ class BaseModel
   def write_attribute(key, value)
     instance_variable_set "@#{key}", value
   end
+  
+  def read_attribute(key)
+    instance_variable_get "@#{key}"
+  end
 end
 
 class MockModel < BaseModel
@@ -123,6 +127,14 @@ class ScopedModel < BaseModel
   end
 
   has_permalink :title, :scope => :foo
+end
+
+class OverrideModel < BaseModel
+  has_permalink :title
+  
+  def permalink
+    self.title ? title : "not the permalink"
+  end
 end
 
 class IfProcConditionModel < BaseModel
@@ -301,5 +313,13 @@ class PermalinkFuTest < Test::Unit::TestCase
     @m.title = 'make me a permalink'
     @m.validate
     assert_not_nil @m.permalink
+  end
+  
+  def test_should_allow_override_of_permalink_method
+    @m = OverrideModel.new
+    assert_nil @m.read_attribute(:permalink)
+    assert_equal @m.permalink, 'not the permalink'
+    @m.title = 'make me the permalink'
+    assert_equal @m.title, @m.permalink    
   end
 end
