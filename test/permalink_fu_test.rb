@@ -133,7 +133,7 @@ class OverrideModel < BaseModel
   has_permalink :title
   
   def permalink
-    self.title ? title : "not the permalink"
+    self.title ? title : 'not the permalink'
   end
 end
 
@@ -318,7 +318,7 @@ class PermalinkFuTest < Test::Unit::TestCase
   def test_should_allow_override_of_permalink_method
     @m = OverrideModel.new
     assert_nil @m.read_attribute(:permalink)
-    @m.write_attribute(:permalink, 'no the permalink')
+    @m.write_attribute(:permalink, 'not the permalink')
     assert_not_equal @m.permalink, @m.read_attribute(:permalink)
     @m.title = 'make me the permalink'
     assert_equal @m.title, @m.permalink    
