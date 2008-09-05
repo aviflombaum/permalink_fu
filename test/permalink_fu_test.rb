@@ -176,9 +176,9 @@ class PermalinkFuTest < Test::Unit::TestCase
   @@samples = {
     'This IS a Tripped out title!!.!1  (well/ not really)' => 'this-is-a-tripped-out-title1-well-not-really',
     '////// meph1sto r0x ! \\\\\\' => 'meph1sto-r0x',
-    'āčēģīķļņū' => 'acegiklnu',
-    '中文測試 chinese text' => 'chinese-text',
-    'fööbär' => 'foobar'
+    'ÄÄÄ“Ä£Ä«Ä·Ä¼Å†Å«' => 'acegiklnu',
+    'ä¸­æ–‡æ¸¬è©¦ chinese text' => 'chinese-text',
+    'fÃ¶Ã¶bÃ¤r' => 'foobar'
   }
 
   @@extra = { 'some-)()()-ExtRa!/// .data==?>    to \/\/test' => 'some-extra-data-to-test' }
@@ -319,5 +319,12 @@ class PermalinkFuTest < Test::Unit::TestCase
     @m = OverrideModel.new
     @m.write_attribute(:permalink, 'the permalink')
     assert_not_equal @m.permalink, @m.read_attribute(:permalink)
+  end
+
+  def test_should_create_permalink_from_attribute_not_attribute_accessor
+    @m = OverrideModel.new
+    @m.title = 'the permalink'
+    @m.validate
+    assert_equal 'the-permalink', @m.read_attribute(:permalink)
   end
 end
