@@ -176,9 +176,9 @@ class PermalinkFuTest < Test::Unit::TestCase
   @@samples = {
     'This IS a Tripped out title!!.!1  (well/ not really)' => 'this-is-a-tripped-out-title1-well-not-really',
     '////// meph1sto r0x ! \\\\\\' => 'meph1sto-r0x',
-    'ÄÄÄ“Ä£Ä«Ä·Ä¼Å†Å«' => 'acegiklnu',
-    'ä¸­æ–‡æ¸¬è©¦ chinese text' => 'chinese-text',
-    'fÃ¶Ã¶bÃ¤r' => 'foobar'
+    'āčēģīķļņū' => 'acegiklnu',
+    '中文測試 chinese text' => 'chinese-text',
+    'fööbär' => 'foobar'
   }
 
   @@extra = { 'some-)()()-ExtRa!/// .data==?>    to \/\/test' => 'some-extra-data-to-test' }
